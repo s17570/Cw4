@@ -12,6 +12,10 @@ namespace Cw4.Controllers
     [Route("api/enrollments")]
     public class EnrollmentsController : ControllerBase
     {
+        //zad. 4.4 -> SQLInjection
+        private string sqlInjectionString = "'aa'; DROP TABLE student;";
+
+
         [HttpGet("{indexNumber}")]
         public IActionResult GetEnrollments(string indexNumber)
         {
@@ -21,7 +25,10 @@ namespace Cw4.Controllers
             using (SqlCommand com = new SqlCommand())
             {
                 com.Connection = con;
-                com.Parameters.AddWithValue("index", indexNumber);
+                //zad 4.4 -> SQLInjection, oczywiście nie zadziała dzięki zastosowaniu mechanizmu poniżej
+                com.Parameters.AddWithValue("index", sqlInjectionString);
+
+                //com.Parameters.AddWithValue("index", indexNumber);
                 com.CommandText = "SELECT * FROM enrollment " +
                     "INNER JOIN student ON student.idenrollment=enrollment.idenrollment " +
                     "WHERE student.indexnumber=@index";
