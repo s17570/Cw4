@@ -26,6 +26,7 @@ namespace Cw4.Controllers
             {
                 com.Connection = con;
                 //zad 4.4 -> SQLInjection, oczywiście nie zadziała dzięki zastosowaniu mechanizmu poniżej
+                //update zad 4.5 -> chodziło o zastosowanie mechanizmu, który prewencyjnie zastosowałem już w 4.4
                 com.Parameters.AddWithValue("index", sqlInjectionString);
 
                 //com.Parameters.AddWithValue("index", indexNumber);
