@@ -17,7 +17,7 @@ namespace Cw4.Controllers
         {
             var list = new List<Student>();
 
-            using (SqlConnection con = new SqlConnection(getConnectionString("db-mssql", "s17570", true)))
+            using (SqlConnection con = new SqlConnection(Program.GetConnectionString()))
             using (SqlCommand com = new SqlCommand())
             {
                 com.Connection = con;
@@ -41,17 +41,6 @@ namespace Cw4.Controllers
             }
 
             return Ok(list);
-        }
-        
-
-        public string getConnectionString(string dataSource, string initialCatalog, bool isIntegratedSecurity)
-        {
-            var connectionBuilder = new SqlConnectionStringBuilder();
-            connectionBuilder.DataSource = dataSource;
-            connectionBuilder.InitialCatalog = initialCatalog;
-            connectionBuilder.IntegratedSecurity = isIntegratedSecurity;
-
-            return connectionBuilder.ConnectionString;
         }
     }
 }
